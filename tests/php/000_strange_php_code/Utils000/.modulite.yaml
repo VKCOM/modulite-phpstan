@@ -1,0 +1,7 @@
+name: "@utils"
+namespace: "Utils000\\"
+
+export:
+  - "Strings000"
+
+require:

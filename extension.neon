@@ -1,0 +1,85 @@
+parameters:
+    modulite:
+        projectRoot: null               # a folder where composer.json/composer.lock/vendor exist
+        srcRoot: null                   # typically, projectRoot/src ; .modulite.yaml files will be searched recursively
+        additionalPackagesRoot: null    # (optional) projectRoot/packages , in case you write composer packages in the same repo
+
+parametersSchema:
+    modulite: structure([
+        projectRoot: schema(string(), nullable())
+        srcRoot: schema(string(), nullable())
+        additionalPackagesRoot: schema(string(), nullable())
+    ])
+
+services:
+    -
+        factory: ModulitePHPStan\ModuliteConfiguration(%currentWorkingDirectory%, %modulite%)
+
+    -
+        class: ModulitePHPStan\ModuliteService
+
+    -
+        class: ModulitePHPStan\ModuliteRules\RuleAssignVar
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: ModulitePHPStan\ModuliteRules\RuleCallConstruct
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: ModulitePHPStan\ModuliteRules\RuleCallGlobalFunc
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: ModulitePHPStan\ModuliteRules\RuleCallStaticMethod
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: ModulitePHPStan\ModuliteRules\RuleDeclareClass
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: ModulitePHPStan\ModuliteRules\RuleDeclareGlobalFunc
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: ModulitePHPStan\ModuliteRules\RuleDeclareMethod
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: ModulitePHPStan\ModuliteRules\RuleDeclareProperty
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: ModulitePHPStan\ModuliteRules\RuleInstanceof
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: ModulitePHPStan\ModuliteRules\RuleUseClassConst
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: ModulitePHPStan\ModuliteRules\RuleUseGlobalConst
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: ModulitePHPStan\ModuliteRules\RuleUseGlobalVar
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: ModulitePHPStan\ModuliteRules\RuleUseStaticField
+        tags:
+            - phpstan.rules.rule
+

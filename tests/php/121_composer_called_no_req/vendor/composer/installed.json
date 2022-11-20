@@ -1,0 +1,48 @@
+{
+    "packages": [
+        {
+            "name": "vk/rpc",
+            "version": "0.0.1",
+            "version_normalized": "0.0.1.0",
+            "dist": {
+                "type": "path",
+                "url": "./packages/vk-rpc",
+                "reference": "089087062db257fe43fad40efb1779fa474b3cbe"
+            },
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "files": [
+                    "rpc121.php"
+                ]
+            },
+            "transport-options": {
+                "relative": true
+            },
+            "install-path": "../vk/rpc"
+        },
+        {
+            "name": "vk/strings",
+            "version": "0.0.1",
+            "version_normalized": "0.0.1.0",
+            "dist": {
+                "type": "path",
+                "url": "./packages/vk-strings",
+                "reference": "f6dfa16ef6cd1e2359698f49560df4ee192cd652"
+            },
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "files": [
+                    "strings121.php"
+                ]
+            },
+            "transport-options": {
+                "relative": true
+            },
+            "install-path": "../vk/strings"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}

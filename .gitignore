@@ -1,0 +1,13 @@
+/.idea
+/.build
+/vendor
+.DS_Store
+kphp_out
+.phpunit.result.cache
+.env
+
+/tests/**/testrun.neon
+/phpstan.neon
+
+
+

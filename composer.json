@@ -1,0 +1,41 @@
+{
+  "name": "vkcom/modulite-phpstan",
+  "type": "phpstan-extension",
+  "description": "A PHPStan plugin providing Modulite support for plain PHP (not KPHP) projects",
+  "require": {
+    "php": "^7.4 || ^8.0",
+    "phpstan/phpstan": "^1.8",
+    "symfony/yaml": "^5.4",
+    "symfony/polyfill-php80": "^v1.27.0"
+  },
+  "require-dev": {
+    "phpstan/phpstan-phpunit": "^1.2",
+    "phpunit/phpunit": "^9.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "ModulitePHPStan\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ModuliteTests\\": "tests/"
+    },
+    "classmap": [
+      "tests/"
+    ]
+  },
+  "extra": {
+    "phpstan": {
+      "includes": [
+        "extension.neon"
+      ]
+    }
+  },
+  "scripts": {
+    "test:unit": "vendor/bin/phpunit --configuration tests/phpunit.xml"
+  },
+  "license": "MIT",
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
