@@ -5,7 +5,7 @@
   "require": {
     "php": "^7.4 || ^8.0",
     "phpstan/phpstan": "^1.8",
-    "symfony/yaml": "^5.4",
+    "symfony/yaml": "^5.4 || ^6.0",
     "symfony/polyfill-php80": "^v1.27.0"
   },
   "require-dev": {
