@@ -1,22 +1,18 @@
-name: "Tests"
+name: Tests
 
 on:
   pull_request:
 
 jobs:
   tests:
-    name: Tests
-    runs-on: ubuntu-latest
+    name: Tests (PHP ${{ matrix.php-versions }} on ${{ matrix.operating-system }})
+    runs-on: ${{ matrix.operating-system }}
     timeout-minutes: 60
-
     strategy:
       fail-fast: false
       matrix:
-        php-version:
-          - "7.4"
-          - "8.0"
-          - "8.1"
-          - "8.2"
+        operating-system: [ ubuntu-latest, macos-latest ]
+        php-versions: [ 7.4, 8.0, 8.1, 8.2 ]
 
     steps:
       - name: Fetch Sources
@@ -26,7 +22,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           coverage: none
-          php-version: "${{ matrix.php-version }}"
+          php-version: ${{ matrix.php-versions }}
           tools: composer:v2
 
       - name: Install dependencies

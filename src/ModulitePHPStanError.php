@@ -11,11 +11,13 @@ class ModulitePHPStanError implements IdentifierRuleError, LineRuleError, FileRu
 
   private string $message;
   private string $file;
+  private string $fileDescription;
   private int $line;
 
-  public function __construct(string $message, string $file, int $line) {
+  public function __construct(string $message, string $file, string $fileDescription, int $line) {
     $this->message = $message;
     $this->file = $file;
+    $this->fileDescription = $fileDescription;
     $this->line = $line;
   }
 
@@ -33,5 +35,9 @@ class ModulitePHPStanError implements IdentifierRuleError, LineRuleError, FileRu
 
   public function getMessage(): string {
     return $this->message;
+  }
+
+  public function getFileDescription(): string {
+    return $this->fileDescription;
   }
 }
