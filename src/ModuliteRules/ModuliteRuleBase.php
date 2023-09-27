@@ -43,7 +43,12 @@ abstract class ModuliteRuleBase implements Rule {
       return [];
     }
 
-    return array_map(fn($msg) => new ModulitePHPStanError($msg, $scope->getFile(), $node->getLine()), $errors);
+    return array_map(fn($msg) => new ModulitePHPStanError(
+      $msg,
+      $scope->getFile(),
+      $scope->getFileDescription(),
+      $node->getLine()
+    ), $errors);
   }
 
   /**
@@ -52,7 +57,7 @@ abstract class ModuliteRuleBase implements Rule {
    */
   private function convertYamlErrorsToPHPStanErrors(array $yaml_errors): array {
     return array_map(function(ModuliteYamlError $err) {
-      return new ModulitePHPStanError($err->getMessage(), $err->getYamlFilename(), $err->getLine());
+      return new ModulitePHPStanError($err->getMessage(), $err->getYamlFilename(), $err->getYamlFilename(), $err->getLine());
     }, $yaml_errors);
   }
 
