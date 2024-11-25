@@ -373,11 +373,11 @@ class ModuliteData {
     if ($has_modulite_yaml_also) {
       $yaml_filename = dirname($composer_json->json_filename) . '/.modulite.yaml';
       try {
-        $y_file = \Symfony\Component\Yaml\Yaml::parseFile($yaml_filename);
+        $y_file = YamlParserNoSymfony::parseFromFile($yaml_filename);
         $parser = new ModuliteYamlParser($out);
-        $parser->parse_modulite_yaml_file(is_array($y_file) ? $y_file : []);
-      } catch (\Symfony\Component\Yaml\Exception\ParseException $ex) {
-        $out->fire_yaml_error($ex->getMessage(), $ex->getParsedLine());
+        $parser->parse_modulite_yaml_file($y_file);
+      } catch (YamlParserNoSymfonyException $ex) {
+        $out->fire_yaml_error($ex->getMessage(), $ex->getLine());
       }
     }
 
@@ -393,11 +393,11 @@ class ModuliteData {
     $out->is_composer_package = false;
 
     try {
-      $y_file = \Symfony\Component\Yaml\Yaml::parseFile($out->yaml_filename);
+      $y_file = YamlParserNoSymfony::parseFromFile($out->yaml_filename);
       $parser = new ModuliteYamlParser($out);
-      $parser->parse_modulite_yaml_file(is_array($y_file) ? $y_file : []);
-    } catch (\Symfony\Component\Yaml\Exception\ParseException $ex) {
-      $out->fire_yaml_error($ex->getMessage(), $ex->getParsedLine());
+      $parser->parse_modulite_yaml_file($y_file);
+    } catch (YamlParserNoSymfonyException $ex) {
+      $out->fire_yaml_error($ex->getMessage(), $ex->getLine());
     }
 
     return $out;
