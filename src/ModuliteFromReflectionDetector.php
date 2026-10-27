@@ -5,6 +5,7 @@ namespace ModulitePHPStan;
 use ModulitePHPStan\ModuliteYaml\ModuliteData;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\GlobalConstantReflection;
 use PHPStan\Reflection\MethodReflection;
@@ -63,7 +64,8 @@ class ModuliteFromReflectionDetector {
     return $this->detectModuliteOfFile($method->getDeclaringClass()->getFileName());
   }
 
-  function detectModuliteOfGlobalConst(GlobalConstantReflection $const): ?ModuliteData {
+  /** @param GlobalConstantReflection|ConstantReflection $const PHPStan 1.x / 2.x */
+  function detectModuliteOfGlobalConst($const): ?ModuliteData {
     return $this->detectModuliteOfFile($const->getFileName());
   }
 
@@ -79,7 +81,8 @@ class ModuliteFromReflectionDetector {
     return $function->isBuiltin();
   }
 
-  function isGlobalConstBuiltin(GlobalConstantReflection $const): bool {
+  /** @param GlobalConstantReflection|ConstantReflection $const PHPStan 1.x / 2.x */
+  function isGlobalConstBuiltin($const): bool {
     return $this->isFileBuiltin($const->getFileName());
   }
 }

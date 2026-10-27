@@ -5,18 +5,19 @@ on:
 
 jobs:
   tests:
-    name: Tests (PHP ${{ matrix.php-versions }} on ${{ matrix.operating-system }})
+    name: Tests (PHP ${{ matrix.php-versions }}, PHPStan ${{ matrix.phpstan-versions }} on ${{ matrix.operating-system }})
     runs-on: ${{ matrix.operating-system }}
     timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
         operating-system: [ ubuntu-latest, macos-latest ]
-        php-versions: [ 7.4, 8.0, 8.1, 8.2 ]
+        php-versions: [ '7.4', '8.0', '8.1', '8.2', '8.3', '8.4', '8.5' ]
+        phpstan-versions: [ '^1.12', '^2.1' ]
 
     steps:
       - name: Fetch Sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install PHP
         uses: shivammathur/setup-php@v2
@@ -26,7 +27,9 @@ jobs:
           tools: composer:v2
 
       - name: Install dependencies
-        run: composer install --no-progress
+        run: |
+          composer require --no-update "phpstan/phpstan:${{ matrix.phpstan-versions }}"
+          composer update --no-progress
 
       - name: Execute tests
         run: composer run test:unit

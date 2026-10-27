@@ -3,6 +3,7 @@
 namespace ModulitePHPStan\ModuliteYaml;
 
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\GlobalConstantReflection;
 
@@ -23,7 +24,8 @@ class ModuliteSymbol {
   public ?ModuliteData $modulite = null;              // kind_modulite
   public ?ClassReflection $klass = null;              // kind_klass, kind_method, kind_constant, kind_property
   public ?FunctionReflection $function = null;        // kind_function
-  public ?GlobalConstantReflection $constant = null;  // kind_global_const
+  /** @var GlobalConstantReflection|ConstantReflection|null PHPStan 1.x / 2.x */
+  public $constant = null;                            // kind_global_const
   public ?string $member_name = null;                 // kind_method, kind_constant, kind_property
   public ?string $global_name = null;                 // kind_global_const, kind_global_var
 

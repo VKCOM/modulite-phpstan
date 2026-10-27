@@ -22,7 +22,7 @@ class RuleDeclareGlobalFunc extends ModuliteRuleBase {
     }
 
     $f = $this->reflector->getFunction($node->namespacedName, $scope);
-    $acc = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($f->getVariants());
+    $acc = $f->getVariants()[0];   // a declaration has a single variant (selectSingle() is removed in PHPStan 2)
     /** @var ParameterReflection[] $parameters */
     $parameters = $acc->getParameters();
     foreach ($parameters as $param) {

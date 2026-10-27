@@ -6,6 +6,7 @@ use ModulitePHPStan\ModuliteYaml\ModuliteData;
 use ModulitePHPStan\ModuliteYaml\ModuliteSymbol;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\GlobalConstantReflection;
 
@@ -416,7 +417,8 @@ class ModuliteCheckRules {
     }
   }
 
-  function modulite_check_when_use_global_const(Scope $usage_context, GlobalConstantReflection $used_c, array &$errors): void {
+  /** @param GlobalConstantReflection|ConstantReflection $used_c PHPStan 1.x / 2.x */
+  function modulite_check_when_use_global_const(Scope $usage_context, $used_c, array &$errors): void {
     $inside_m = $this->detector->detectModuliteOfScope($usage_context);
     $another_m = $this->detector->detectModuliteOfGlobalConst($used_c);
     if ($inside_m === $another_m || self::should_this_usage_context_be_ignored($usage_context)) {

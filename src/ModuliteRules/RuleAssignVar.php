@@ -12,12 +12,16 @@ use PHPStan\ShouldNotHappenException;
 
 class RuleAssignVar extends ModuliteRuleBase {
   public function getNodeType(): string {
-    return Node\Expr\Assign::class;
+    // since php-parser 5 (PHPStan 2), a doc comment is attached to the statement, not to the Assign inside it
+    return Node\Stmt\Expression::class;
   }
 
   protected function doProcessNode(Node $node, Scope $scope, array &$errors): void {
-    if (!$node instanceof Node\Expr\Assign) {
+    if (!$node instanceof Node\Stmt\Expression) {
       throw new ShouldNotHappenException("got \$node of class " . get_class($node));
+    }
+    if (!$node->expr instanceof Node\Expr\Assign) {
+      return;
     }
 
     $docComment = $node->getDocComment();

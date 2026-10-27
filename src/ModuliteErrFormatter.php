@@ -5,6 +5,7 @@ namespace ModulitePHPStan;
 use ModulitePHPStan\ModuliteYaml\ModuliteData;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\GlobalConstantReflection;
 
@@ -75,7 +76,8 @@ class ModuliteErrFormatter {
     );
   }
 
-  static function use_global_const(Scope $usage_context, GlobalConstantReflection $constant, ModuliteCheckRules $checker): self {
+  /** @param GlobalConstantReflection|ConstantReflection $constant PHPStan 1.x / 2.x */
+  static function use_global_const(Scope $usage_context, $constant, ModuliteCheckRules $checker): self {
     return new self(
       $checker,
       $checker->detector->detectModuliteOfScope($usage_context),

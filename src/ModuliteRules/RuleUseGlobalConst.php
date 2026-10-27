@@ -34,7 +34,8 @@ class RuleUseGlobalConst extends ModuliteRuleBase {
     $this->checker->modulite_check_when_use_global_const($scope, $const, $errors);
   }
 
-  private function debug(\PHPStan\Reflection\GlobalConstantReflection $const, Scope $scope) {
+  /** @param \PHPStan\Reflection\GlobalConstantReflection|\PHPStan\Reflection\ConstantReflection $const PHPStan 1.x / 2.x */
+  private function debug($const, Scope $scope) {
     $c_name = $const->getName();
     $cur_place = DebugHelpers::stringifyScope($scope);
     $ref_loc = DebugHelpers::stringifyLocation($const->getFileName());

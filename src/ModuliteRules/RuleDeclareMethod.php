@@ -23,7 +23,7 @@ class RuleDeclareMethod extends ModuliteRuleBase {
 
     $klass = $scope->getClassReflection();
     $f = $klass->getMethod($node->name->name, $scope);
-    $acc = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($f->getVariants());
+    $acc = $f->getVariants()[0];   // a declaration has a single variant (selectSingle() is removed in PHPStan 2)
     /** @var ParameterReflection[] $parameters */
     $parameters = $acc->getParameters();
 //    $this->debug($f, $acc->getReturnType(), $parameters, $scope);
